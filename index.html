@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f6f3">
+  <link rel="icon" href="data:,">
+  <title>오늘의 사용시간</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #202b3b;
+      --muted: #697586;
+      --soft: #f5f6f3;
+      --line: #e5e8e3;
+      --blue: #526ee5;
+      --green: #4c8c70;
+      font-family: Inter, "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body { min-width: 320px; min-height: 100vh; margin: 0; background: var(--soft); color: var(--ink); }
+    button { font: inherit; }
+    .page { width: min(1120px, 100%); min-height: 100vh; margin: 0 auto; padding: 26px 36px 32px; }
+    .topbar { display: flex; align-items: center; justify-content: space-between; }
+    .brand { display: flex; align-items: center; gap: 11px; font-size: 16px; font-weight: 800; letter-spacing: -.35px; }
+    .brand-mark { display: grid; width: 38px; height: 38px; place-items: center; border-radius: 13px; background: #e5eaff; color: #4f69d3; }
+    .brand-mark svg { width: 22px; height: 22px; }
+    .platform { display: inline-flex; align-items: center; gap: 7px; padding: 8px 11px; border: 1px solid #e0e4dc; border-radius: 99px; background: #fbfcfa; color: #627063; font-size: 12px; font-weight: 700; }
+    .platform svg { width: 15px; height: 15px; }
+    .content { display: grid; grid-template-columns: minmax(0, 1fr) 386px; gap: 76px; align-items: center; max-width: 1000px; min-height: calc(100vh - 100px); margin: 0 auto; padding: 52px 0 64px; }
+    .intro { max-width: 510px; padding-bottom: 10px; }
+    .kicker { display: flex; align-items: center; gap: 9px; margin: 0 0 20px; color: #547b69; font-size: 13px; font-weight: 800; letter-spacing: .2px; }
+    .kicker::before { width: 23px; height: 2px; background: #83aa8f; content: ""; }
+    h1 { max-width: 500px; margin: 0; font-size: clamp(36px, 5vw, 54px); line-height: 1.15; letter-spacing: -2.5px; }
+    .lede { max-width: 455px; margin: 19px 0 25px; color: #657183; font-size: 17px; line-height: 1.75; }
+    .permission-card { display: flex; align-items: center; gap: 13px; max-width: 440px; padding: 15px 16px; border: 1px solid var(--line); border-radius: 17px; background: #fff; }
+    .permission-icon { display: grid; width: 42px; height: 42px; flex: none; place-items: center; border-radius: 14px; background: #eef1ff; color: #506bdd; }
+    .permission-icon svg { width: 21px; height: 21px; }
+    .permission-text { min-width: 0; flex: 1; }
+    .permission-text strong { display: block; font-size: 14px; }
+    .permission-text span { display: block; margin-top: 4px; color: #7d8794; font-size: 12px; }
+    .status { padding: 6px 9px; border-radius: 99px; background: #fff2df; color: #956423; font-size: 11px; font-weight: 800; white-space: nowrap; }
+    .primary-button { display: flex; width: min(100%, 440px); min-height: 54px; align-items: center; justify-content: center; gap: 10px; margin-top: 13px; border: 0; border-radius: 15px; background: #4e68d8; color: white; font-size: 15px; font-weight: 800; cursor: pointer; box-shadow: 0 7px 14px #526ee52c; transition: transform .15s, background .15s, box-shadow .15s; }
+    .primary-button:hover { transform: translateY(-2px); background: #405bc9; box-shadow: 0 10px 20px #526ee53b; }
+    .primary-button:active { transform: scale(.99); }
+    .primary-button:focus-visible, .modal-close:focus-visible { outline: 3px solid #e8ae52; outline-offset: 3px; }
+    .primary-button svg { width: 19px; height: 19px; }
+    .fine-print { display: flex; max-width: 430px; gap: 8px; align-items: flex-start; margin: 16px 4px 0; color: #7c8693; font-size: 12px; line-height: 1.6; }
+    .fine-print svg { width: 16px; height: 16px; flex: none; margin-top: 1px; color: #728473; }
+    .tech-note { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+    .tech-note span { padding: 7px 10px; border: 1px solid #e2e5df; border-radius: 8px; background: #f9faf8; color: #6b7783; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; }
+    .preview-wrap { position: relative; }
+    .preview-wrap::before { position: absolute; z-index: -1; top: 18px; right: -29px; width: 190px; height: 190px; border-radius: 50%; background: #e7eddf; content: ""; }
+    .preview { position: relative; overflow: hidden; padding: 24px 22px 19px; border: 1px solid #e5e8e3; border-radius: 25px; background: #fff; box-shadow: 0 22px 60px #27344512; }
+    .preview-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+    .preview-head p { margin: 0 0 7px; color: #7c8793; font-size: 12px; }
+    .preview-head h2 { margin: 0; font-size: 22px; letter-spacing: -.7px; }
+    .date-mark { display: grid; width: 39px; height: 39px; place-items: center; border-radius: 13px; background: #f3f5f1; color: #738271; }
+    .date-mark svg { width: 20px; height: 20px; }
+    .demo-tag { display: inline-flex; align-items: center; gap: 6px; margin-top: 19px; padding: 6px 9px; border-radius: 7px; background: #f2f4f9; color: #62718a; font-size: 10px; font-weight: 800; }
+    .demo-tag span { width: 6px; height: 6px; border-radius: 50%; background: #8a99b0; }
+    .app-list { display: grid; gap: 18px; margin-top: 20px; }
+    .app-row { display: grid; grid-template-columns: 40px minmax(0, 1fr) auto; gap: 11px; align-items: center; }
+    .app-icon { display: grid; width: 40px; height: 40px; place-items: center; border-radius: 13px; color: #fff; font-size: 13px; font-weight: 800; }
+    .app-icon.video { background: #e76b63; }
+    .app-icon.browser { background: #5793cb; }
+    .app-icon.chat { background: #e3b441; color: #493d1b; }
+    .app-icon.music { background: #65a985; }
+    .app-icon.game { background: #866fc0; }
+    .app-name { min-width: 0; }
+    .app-name strong { display: block; overflow: hidden; font-size: 13px; font-weight: 750; text-overflow: ellipsis; white-space: nowrap; }
+    .app-name span { display: block; margin-top: 6px; overflow: hidden; color: #9aa2ac; font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }
+    .duration { align-self: start; padding-top: 3px; color: #48556a; font-size: 12px; font-weight: 800; white-space: nowrap; }
+    .bar { height: 4px; margin-top: 8px; overflow: hidden; border-radius: 9px; background: #eef0ed; }
+    .bar span { display: block; height: 100%; border-radius: inherit; background: #7789e5; }
+    .bar.video span { width: 100%; background: #de8179; }
+    .bar.browser span { width: 70%; background: #75a7ce; }
+    .bar.chat span { width: 51%; background: #d5b761; }
+    .bar.music span { width: 41%; background: #79ad8e; }
+    .bar.game span { width: 29%; background: #9a88c9; }
+    .preview-foot { display: flex; justify-content: space-between; margin-top: 21px; padding-top: 14px; border-top: 1px solid #eff0ed; color: #89928f; font-size: 10px; }
+    .modal-backdrop { position: fixed; z-index: 10; inset: 0; display: grid; place-items: center; padding: 20px; background: #15203480; opacity: 0; visibility: hidden; transition: opacity .18s, visibility .18s; }
+    .modal-backdrop.open { opacity: 1; visibility: visible; }
+    .modal { width: min(100%, 440px); padding: 25px; border: 1px solid #e7e9e5; border-radius: 22px; background: #fff; box-shadow: 0 25px 70px #101a2d35; transform: translateY(9px); transition: transform .18s; }
+    .modal-backdrop.open .modal { transform: translateY(0); }
+    .modal-symbol { display: grid; width: 48px; height: 48px; place-items: center; border-radius: 16px; background: #edf0ff; color: #526ee5; }
+    .modal-symbol svg { width: 24px; height: 24px; }
+    .modal h2 { margin: 18px 0 8px; font-size: 21px; letter-spacing: -.5px; }
+    .modal p { margin: 0; color: #697586; font-size: 14px; line-height: 1.7; }
+    .steps { display: grid; gap: 9px; margin: 18px 0 20px; padding: 15px; border-radius: 14px; background: #f6f7f5; color: #586474; font-size: 13px; line-height: 1.5; }
+    .steps span { display: flex; gap: 9px; align-items: flex-start; }
+    .steps b { display: grid; width: 20px; height: 20px; flex: none; place-items: center; border-radius: 50%; background: #e5eaff; color: #4e68d8; font-size: 11px; }
+    .modal-actions { display: flex; justify-content: flex-end; }
+    .modal-close { min-width: 94px; min-height: 44px; padding: 0 16px; border: 0; border-radius: 12px; background: #4e68d8; color: white; font-weight: 800; cursor: pointer; }
+    @media (max-width: 800px) {
+      .page { padding: 18px 20px 30px; }
+      .content { grid-template-columns: minmax(0, 1fr) 340px; gap: 32px; min-height: calc(100vh - 75px); padding: 44px 0; }
+      .preview { padding: 21px 18px 17px; }
+      .app-list { gap: 15px; }
+      h1 { font-size: 41px; }
+      .lede { font-size: 15px; }
+    }
+    @media (max-width: 680px) {
+      .page { padding: 15px 17px 30px; }
+      .content { grid-template-columns: 1fr; gap: 34px; max-width: 470px; min-height: auto; padding: 51px 0 22px; }
+      .intro { padding-bottom: 0; }
+      .kicker { margin-bottom: 14px; }
+      h1 { font-size: clamp(37px, 10vw, 47px); }
+      .lede { margin: 13px 0 20px; font-size: 15px; }
+      .permission-card { padding: 12px; }
+      .permission-text span { font-size: 11px; }
+      .primary-button { min-height: 52px; }
+      .tech-note { margin-top: 20px; }
+      .preview-wrap { width: min(100%, 386px); margin: 0 auto; }
+      .preview-wrap::before { right: -13px; width: 130px; height: 130px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <svg aria-hidden="true" width="0" height="0" style="position:absolute;overflow:hidden">
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 7v5l3 2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 20 6v5c0 5-3.3 8.2-8 10-4.7-1.8-8-5-8-10V6z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="m9 12 2 2 4-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="16" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M7.5 3v4m9-4v4M4 9.5h16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-5-5 5 5-5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  </svg>
+  <div class="page">
+    <header class="topbar">
+      <div class="brand"><span class="brand-mark"><svg aria-hidden="true"><use href="#i-clock"/></svg></span><span>오늘의 사용시간</span></div>
+      <span class="platform"><svg aria-hidden="true"><use href="#i-shield"/></svg>Android 앱</span>
+    </header>
+    <main class="content">
+      <section class="intro">
+        <p class="kicker">나의 디지털 하루</p>
+        <h1>오늘 가장 오래<br>사용한 앱은?</h1>
+        <p class="lede">사용 정보 접근을 허용하면 오늘 사용한 앱과 시간을 확인할 수 있어요. 사용 기록은 기기 안에서만 읽습니다.</p>
+        <div class="permission-card">
+          <span class="permission-icon"><svg aria-hidden="true"><use href="#i-shield"/></svg></span>
+          <span class="permission-text"><strong>사용 정보 접근</strong><span>Android 설정에서 직접 허용해요</span></span>
+          <span class="status">설정 필요</span>
+        </div>
+        <button class="primary-button" id="openPermission" type="button">사용 정보 접근 설정 열기 <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+        <p class="fine-print"><svg aria-hidden="true"><use href="#i-shield"/></svg><span>이 권한은 앱 사용시간을 읽기 위해 필요합니다. 브라우저 미리보기는 실제 Android 권한이나 사용 기록에 접근하지 않습니다.</span></p>
+        <div class="tech-note" aria-label="사용 기술"><span>UsageStatsManager</span><span>PACKAGE_USAGE_STATS</span></div>
+      </section>
+      <section class="preview-wrap" aria-label="화면 예시">
+        <div class="preview">
+          <div class="preview-head"><div><p>오늘 · 00:00부터</p><h2>사용시간 TOP 5</h2></div><span class="date-mark"><svg aria-hidden="true"><use href="#i-calendar"/></svg></span></div>
+          <span class="demo-tag"><span></span>화면 예시 · 실제 기록 아님</span>
+          <div class="app-list">
+            <div class="app-row"><span class="app-icon video">재생</span><div class="app-name"><strong>동영상</strong><div class="bar video"><span></span></div></div><span class="duration">126분</span></div>
+            <div class="app-row"><span class="app-icon browser">웹</span><div class="app-name"><strong>인터넷 브라우저</strong><div class="bar browser"><span></span></div></div><span class="duration">88분</span></div>
+            <div class="app-row"><span class="app-icon chat">톡</span><div class="app-name"><strong>메신저</strong><div class="bar chat"><span></span></div></div><span class="duration">64분</span></div>
+            <div class="app-row"><span class="app-icon music">음</span><div class="app-name"><strong>음악</strong><div class="bar music"><span></span></div></div><span class="duration">52분</span></div>
+            <div class="app-row"><span class="app-icon game">게임</span><div class="app-name"><strong>퍼즐 게임</strong><div class="bar game"><span></span></div></div><span class="duration">37분</span></div>
+          </div>
+          <div class="preview-foot"><span>분 단위로 표시</span><span>기기에서만 처리</span></div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <div class="modal-backdrop" id="permissionModal" role="presentation" aria-hidden="true">
+    <section class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalDescription">
+      <span class="modal-symbol"><svg aria-hidden="true"><use href="#i-shield"/></svg></span>
+      <h2 id="modalTitle">Android 앱에서 설정을 열어요</h2>
+      <p id="modalDescription">이 화면은 브라우저 미리보기라 Android 시스템 설정을 직접 열 수 없습니다. 실제 앱을 Android 기기에서 실행하면 버튼이 사용 정보 접근 화면으로 이동합니다.</p>
+      <div class="steps"><span><b>1</b>Android Studio에서 <code>android</code> 폴더를 엽니다.</span><span><b>2</b>앱을 기기에 실행하고 설정 버튼을 누릅니다.</span><span><b>3</b>앱 목록에서 ‘오늘의 사용시간’을 허용합니다.</span></div>
+      <div class="modal-actions"><button class="modal-close" id="closeModal" type="button">확인</button></div>
+    </section>
+  </div>
+  <script>
+    const backdrop = document.querySelector("#permissionModal");
+    const closeButton = document.querySelector("#closeModal");
+    const openButton = document.querySelector("#openPermission");
+    function closeModal() {
+      backdrop.classList.remove("open");
+      backdrop.setAttribute("aria-hidden", "true");
+      openButton.focus();
+    }
+    openButton.addEventListener("click", () => {
+      backdrop.classList.add("open");
+      backdrop.setAttribute("aria-hidden", "false");
+      closeButton.focus();
+    });
+    closeButton.addEventListener("click", closeModal);
+    backdrop.addEventListener("click", event => { if (event.target === backdrop) closeModal(); });
+    document.addEventListener("keydown", event => { if (event.key === "Escape" && backdrop.classList.contains("open")) closeModal(); });
+  </script>
+</body>
+</html>

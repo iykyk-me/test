@@ -1,0 +1,92 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e4]:
+        - img [ref=e6]
+        - generic [ref=e8]: 말해요
+      - navigation "화면 선택" [ref=e9]:
+        - button "아이 화면" [pressed] [ref=e10] [cursor=pointer]
+        - button "선생님 화면" [ref=e11] [cursor=pointer]
+    - main [ref=e12]:
+      - region "아이 요청 화면" [ref=e13]:
+        - generic [ref=e14]:
+          - generic [ref=e15]:
+            - generic [ref=e16]:
+              - paragraph [ref=e17]:
+                - img [ref=e18]
+                - text: 오늘도 반가워요!
+              - heading "무엇이 필요해요?" [level=1] [ref=e20]
+              - paragraph [ref=e21]:
+                - text: 그림을 톡 눌러주세요.
+                - text: 선생님께 마음을 전해드릴게요.
+            - img [ref=e22]
+          - generic [ref=e32]:
+            - heading "하고 싶은 말을 골라요" [level=2] [ref=e33]
+            - generic [ref=e34]: 하나만 눌러도 괜찮아요
+          - generic [ref=e35]:
+            - button "물 마시고 싶어요" [ref=e36] [cursor=pointer]:
+              - img [ref=e38]
+              - generic [ref=e40]:
+                - generic [ref=e41]:
+                  - strong [ref=e42]: 물 마실래요
+                  - text: 목이 말라요
+                - img [ref=e43]
+            - button "화장실 가고 싶어요" [ref=e45] [cursor=pointer]:
+              - img [ref=e47]
+              - generic [ref=e49]:
+                - generic [ref=e50]:
+                  - strong [ref=e51]: 화장실 갈래요
+                  - text: 화장실에 가고 싶어요
+                - img [ref=e52]
+            - button "도와주세요" [ref=e54] [cursor=pointer]:
+              - img [ref=e56]
+              - generic [ref=e58]:
+                - generic [ref=e59]:
+                  - strong [ref=e60]: 도와주세요
+                  - text: 선생님이 필요해요
+                - img [ref=e61]
+            - button "아파요" [ref=e63] [cursor=pointer]:
+              - img [ref=e65]
+              - generic [ref=e67]:
+                - generic [ref=e68]:
+                  - strong [ref=e69]: 아파요
+                  - text: 몸이 불편해요
+                - img [ref=e70]
+            - button "쉬고 싶어요" [ref=e72] [cursor=pointer]:
+              - img [ref=e74]
+              - generic [ref=e76]:
+                - generic [ref=e77]:
+                  - strong [ref=e78]: 쉬고 싶어요
+                  - text: 조금 쉬고 싶어요
+                - img [ref=e79]
+            - button "배고파요" [ref=e81] [cursor=pointer]:
+              - img [ref=e83]
+              - generic [ref=e85]:
+                - generic [ref=e86]:
+                  - strong [ref=e87]: 배고파요
+                  - text: 간식 먹고 싶어요
+                - img [ref=e88]
+        - complementary "요청과 설정" [ref=e90]:
+          - generic [ref=e91]:
+            - heading "내가 보낸 말 0" [level=2] [ref=e92]:
+              - img [ref=e93]
+              - text: 내가 보낸 말
+              - generic [ref=e95]: "0"
+            - generic [ref=e96]:
+              - img [ref=e97]
+              - paragraph [ref=e99]:
+                - text: 아직 보낸 말이 없어요.
+                - text: 필요한 그림을 눌러보세요!
+          - generic [ref=e100]:
+            - generic [ref=e101]:
+              - strong [ref=e102]: 소리로 읽어주기
+              - generic [ref=e103]: 버튼을 누르면 말해요
+            - switch "소리로 읽어주기 켜기" [checked] [ref=e104] [cursor=pointer]
+          - generic [ref=e105]:
+            - img [ref=e106]
+            - generic [ref=e108]: 요청 내용은 이 화면 안에서만 보여요. 선생님과 함께 사용해 주세요.
+  - status:
+    - img
+    - generic:
+      - strong: 선생님께 알려드렸어요
+      - generic: 요청을 화면에 표시했어요.

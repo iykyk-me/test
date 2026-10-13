@@ -1,0 +1,62 @@
+- generic [ref=e2]:
+  - banner [ref=e3]:
+    - generic [ref=e4]:
+      - img [ref=e6]
+      - generic [ref=e8]: 오늘의 사용시간
+    - generic [ref=e9]:
+      - img [ref=e10]
+      - text: Android 앱
+  - main [ref=e12]:
+    - generic [ref=e13]:
+      - paragraph [ref=e14]: 나의 디지털 하루
+      - heading "오늘 가장 오래 사용한 앱은?" [level=1] [ref=e15]:
+        - text: 오늘 가장 오래
+        - text: 사용한 앱은?
+      - paragraph [ref=e16]: 사용 정보 접근을 허용하면 오늘 사용한 앱과 시간을 확인할 수 있어요. 사용 기록은 기기 안에서만 읽습니다.
+      - generic [ref=e17]:
+        - img [ref=e19]
+        - generic [ref=e21]:
+          - strong [ref=e22]: 사용 정보 접근
+          - generic [ref=e23]: Android 설정에서 직접 허용해요
+        - generic [ref=e24]: 설정 필요
+      - button "사용 정보 접근 설정 열기" [ref=e25] [cursor=pointer]:
+        - text: 사용 정보 접근 설정 열기
+        - img [ref=e26]
+      - paragraph [ref=e28]:
+        - img [ref=e29]
+        - generic [ref=e31]: 이 권한은 앱 사용시간을 읽기 위해 필요합니다. 브라우저 미리보기는 실제 Android 권한이나 사용 기록에 접근하지 않습니다.
+      - generic "사용 기술" [ref=e32]:
+        - generic [ref=e33]: UsageStatsManager
+        - generic [ref=e34]: PACKAGE_USAGE_STATS
+    - region "화면 예시" [ref=e35]:
+      - generic [ref=e36]:
+        - generic [ref=e37]:
+          - generic [ref=e38]:
+            - paragraph [ref=e39]: 오늘 · 00:00부터
+            - heading "사용시간 TOP 5" [level=2] [ref=e40]
+          - img [ref=e42]
+        - generic [ref=e44]: 화면 예시 · 실제 기록 아님
+        - generic [ref=e46]:
+          - generic [ref=e47]:
+            - generic [ref=e48]: 재생
+            - strong [ref=e50]: 동영상
+            - generic [ref=e53]: 126분
+          - generic [ref=e54]:
+            - generic [ref=e55]: 웹
+            - strong [ref=e57]: 인터넷 브라우저
+            - generic [ref=e60]: 88분
+          - generic [ref=e61]:
+            - generic [ref=e62]: 톡
+            - strong [ref=e64]: 메신저
+            - generic [ref=e67]: 64분
+          - generic [ref=e68]:
+            - generic [ref=e69]: 음
+            - strong [ref=e71]: 음악
+            - generic [ref=e74]: 52분
+          - generic [ref=e75]:
+            - generic [ref=e76]: 게임
+            - strong [ref=e78]: 퍼즐 게임
+            - generic [ref=e81]: 37분
+        - generic [ref=e82]:
+          - generic [ref=e83]: 분 단위로 표시
+          - generic [ref=e84]: 기기에서만 처리
