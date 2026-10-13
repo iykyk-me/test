@@ -156,7 +156,7 @@ class MainActivity : Activity() {
             return
         }
 
-        val maxTime = usage.maxOf { it.totalTimeInForeground }.coerceAtLeast(1L)
+        val maxTime = usage.maxOf { it.total }.coerceAtLeast(1L)
         usage.forEachIndexed { index, stat ->
             val info = try {
                 packageManager.getApplicationInfo(stat.packageName, 0)
@@ -167,7 +167,7 @@ class MainActivity : Activity() {
             val icon = info?.let {
                 try { packageManager.getApplicationIcon(it) } catch (_: Exception) { null }
             }
-            content.addView(appUsageCard(index + 1, appName, stat.totalTimeInForeground, maxTime, icon), margin(bottom = 10))
+            content.addView(appUsageCard(index + 1, appName, stat.total, maxTime, icon), margin(bottom = 10))
         }
     }
 
